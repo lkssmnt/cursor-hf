@@ -1,11 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Socket Test</title>
-</head>
-<body>
-    <h1>Socket Test Heroku</h1>
-</body>
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: 0.5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      .test { top: 0; left: 0; width: 500px; height: 500px; background-color: red; cursor: none;}
+      .cursor {position: absolute; top: 0; left: 0; height: 30px; width: 30px; border-radius: 100%; background-color: blue; transform: translate(-50%, -50%); pointer-events: none;}
+      .user-portrait {display: inline-block; height: 100px; width: 100px; border-radius: 100%; }
+      .active-portrait {border: 3px solid black}
+    </style>
+  </head>
+  <body>
+
+    <div class="test">move cursor around here</div>
+    <div class="cursors"></div>
+    <div class="users"></div>
+    <p class="my-id"></p>
+
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        
+        var socket = io(); 
+        var xPos = 0;
+
+        // socket.emit('new user');
+        
+        const testDiv = document.querySelector('.test');
+        const cursor = document.querySelector('.cursor');
+        const usersDiv = document.querySelector('.users');
+
+        socket.on('connect', () => {
+          console.log(socket.id);
+        })
+
+        socket.on('render portraits', (userArr) => {
+          let usersOnline = userArr.length;
+          console.log(userArr);
+          console.log('my socket id' + socket.id);
+
+          document.querySelector('.my-id').innerHTML = socket.id;
+
+          usersDiv.innerHTML = "";
+          
+          for(let i=0; i<usersOnline; i++) {
+            let element = document.createElement("div");
+            element.classList.add('user-portrait');
+            element.id = i;
+
+            element.style.backgroundColor = userArr[i].color;
+
+            if(userArr[i].userID === socket.id){
+              element.classList.add('active-portrait');
+            }
+            usersDiv.append(element);
+
+            // init cursors
+            element = document.createElement("div");
+            element.classList.add('cursor');
+            element.id = `${i}-cursor`;
+            // element.classList.add(`${i}-cursor`);
+            element.style.backgroundColor = userArr[i].color;
+            document.querySelector('.cursors').append(element);
+            
+          }
+
+        });
+
+        // socket.on('render cursors', (userArr) => {
+        //   let usersOnline = userArr.length;
+
+        // });
+
+        const cursorfps = 60;
+        let wait = false;
+
+        testDiv.addEventListener('mousemove', (e) => {
+          if(!wait) {
+            socket.emit('mouse move', e.clientX, e.clientY);
+            wait = true;
+
+            setTimeout(() => {
+              wait = false;
+            }, 1000 / cursorfps);
+          }
+
+        });
+
+        socket.on('render cursors', userArr => {
+          console.log("rendering cursors!");
+          for(let i=0; i<userArr.length; i++) {
+            const cursor = document.getElementById(`${i}-cursor`);
+            cursor.style.left = userArr[i].xPos + 'px';
+            cursor.style.top = userArr[i].yPos + 'px';
+          }
+        });
+
+        // socket.on('mouse move', (xPos, yPos) => {
+        //     console.log(xPos + '/' + yPos);
+        //     cursor.style.left = xPos + 'px';
+        //     cursor.style.top = yPos + 'px';
+        // });
+
+      </script>
+
+  </body>
 </html>
