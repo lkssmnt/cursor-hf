@@ -1,7 +1,7 @@
 // INDEX
-const { get } = require("http");
-const path = require("path");
-const app = require('express')();
+const path = require('path');
+const express = require('express');
+const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
@@ -12,13 +12,20 @@ const CSS_COLOR_NAMES = [
 const cursorArr = [];
 const userArr = [];
 
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views/pages'))
+
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  // res.sendFile(__dirname + '/index.html');
+  res.render('index');
 });
 
 app.get('/svg_test', (req, res) => {
-  res.sendFile(__dirname + '/svg_test.html');
+  res.render('svg_test');
 });
+
+
 
 io.on('connection', (socket) => {
 
