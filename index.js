@@ -1,4 +1,5 @@
 // INDEX
+const { get } = require("http");
 const path = require("path");
 const app = require('express')();
 const http = require('http').createServer(app);
@@ -10,8 +11,6 @@ const CSS_COLOR_NAMES = [
 
 const cursorArr = [];
 const userArr = [];
-
-
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -27,9 +26,9 @@ io.on('connection', (socket) => {
   });
 
   console.log(`a user with the id ${socket.id} connected. users online: ${userArr.length}`);
-  console.log(`the new user has the color: ${userArr[userArr.length-1].color}`);
+  // console.log(`the new user has the color: ${userArr[userArr.length-1].color}`);
 
-  console.log(userArr);
+  // console.log(userArr);
 
   socket.on('disconnect', () => {
     console.log(`user with id ${socket.id} disconnected`);
@@ -41,7 +40,6 @@ io.on('connection', (socket) => {
     }
 
     io.emit('render portraits', userArr);
-    // io.emit('render cursors', userArr);
   
   });
 
@@ -57,8 +55,6 @@ io.on('connection', (socket) => {
     }
 
     io.emit('render cursors', userArr);
-
-    console.log(userArr);
   }) 
 
 

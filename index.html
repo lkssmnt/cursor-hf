@@ -38,13 +38,11 @@
         const usersDiv = document.querySelector('.users');
 
         socket.on('connect', () => {
-          console.log(socket.id);
+          // console.log(socket.id);
         })
 
         socket.on('render portraits', (userArr) => {
           let usersOnline = userArr.length;
-          console.log(userArr);
-          console.log('my socket id' + socket.id);
 
           document.querySelector('.my-id').innerHTML = socket.id;
 
@@ -62,24 +60,23 @@
             }
             usersDiv.append(element);
 
+            console.log(document.querySelector('.cursors').innerHTML);
+            // document.querySelector('.cursors').innerHTML = "";
+            
             // init cursors
             element = document.createElement("div");
             element.classList.add('cursor');
             element.id = `${i}-cursor`;
-            // element.classList.add(`${i}-cursor`);
             element.style.backgroundColor = userArr[i].color;
+            element.style.left = userArr[i].xPos + 'px';
+            element.style.top = userArr[i].yPos + 'px';
             document.querySelector('.cursors').append(element);
             
           }
 
         });
 
-        // socket.on('render cursors', (userArr) => {
-        //   let usersOnline = userArr.length;
-
-        // });
-
-        const cursorfps = 60;
+        const cursorfps = 120;
         let wait = false;
 
         testDiv.addEventListener('mousemove', (e) => {
@@ -102,12 +99,6 @@
             cursor.style.top = userArr[i].yPos + 'px';
           }
         });
-
-        // socket.on('mouse move', (xPos, yPos) => {
-        //     console.log(xPos + '/' + yPos);
-        //     cursor.style.left = xPos + 'px';
-        //     cursor.style.top = yPos + 'px';
-        // });
 
       </script>
 
