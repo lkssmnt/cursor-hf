@@ -16,6 +16,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/svg_test', (req, res) => {
+  res.sendFile(__dirname + '/svg_test.html');
+});
+
 io.on('connection', (socket) => {
 
   userArr.push({
