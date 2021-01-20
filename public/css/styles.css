@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Theaterfont";
+  src: url("../fonts/TheaterfontGX.ttf") format("truetype");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -77,4 +82,46 @@ svg#forms {
 
 .img1 {
   background-image: url("https://www.thalia-theater.de/f/5b24bb94e6.jpg");
+}
+
+.mask-type {
+  font-size: 10em;
+  font-family: Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  background-image: url("https://www.thalia-theater.de/f/5b24bb94e6.jpg");
+  background-position: 0% 0%;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -o-background-clip: text;
+  background-clip: text;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+.variable {
+  font-family: "Theaterfont";
+  top: -40%;
+  position: absolute;
+  color: cadetblue;
+  font-weight: 100;
+  font-size: calc(70rem + 30vh);
+  margin: 0;
+}
+
+.v {
+  font-variation-settings: "wght" 0;
+}
+
+.h {
+  font-variation-settings: "wght" 0;
 }

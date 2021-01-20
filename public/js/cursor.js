@@ -1,21 +1,3 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Socket.IO chat</title>
-    <style>
-
-    </style>
-  </head>
-  <body>
-
-    <div class="test">move cursor around here</div>
-    <div class="cursors"></div>
-    <div class="users"></div>
-    <p class="my-id"></p>
-
-      <script src="/socket.io/socket.io.js"></script>
-      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-      <script>
         
         var socket = io(); 
         var xPos = 0;
@@ -88,8 +70,3 @@
             cursor.style.top = userArr[i].yPos + 'px';
           }
         });
-
-      </script>
-
-  </body>
-</html>
