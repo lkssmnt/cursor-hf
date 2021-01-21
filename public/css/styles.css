@@ -3,6 +3,11 @@
   src: url("../fonts/TheaterfontGX.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Gosha";
+  src: url("../fonts/GoshaSans-Medium.woff2") format("woff2");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +15,7 @@
 }
 
 html {
-  background-color: #a313ff;
+  background-color: black;
 }
 
 html,
@@ -24,16 +29,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #a313ff;
 }
 
 .test {
   top: 0;
   left: 0;
-  width: 500px;
+  width: 1200px;
   height: 500px;
-  border: 3px solid grey;
+  /* border: 3px solid grey; */
+  background-color: #a313ff;
   cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+p {
+  font-family: Gosha;
+  font-size: 3rem;
+}
+
 .cursor {
   position: absolute;
   top: 0;
@@ -52,7 +68,7 @@ body {
   border-radius: 100%;
 }
 .active-portrait {
-  border: 3px solid black;
+  border: 3px solid white;
 }
 
 svg#forms {
@@ -89,7 +105,9 @@ svg#forms {
   font-family: Helvetica, Arial, sans-serif;
   overflow: hidden;
   background-image: url("https://www.thalia-theater.de/f/5b24bb94e6.jpg");
-  background-position: 0% 0%;
+  background-position: 50% 0%;
+  background-repeat: no-repeat;
+  background-size: cover;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   -moz-background-clip: text;
